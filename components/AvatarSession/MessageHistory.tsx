@@ -28,10 +28,10 @@ export const MessageHistory: React.FC = () => {
               : "self-start items-start"
           }`}
         >
-          <p className="text-xs text-zinc-400">
+          <p className="text-sm text-black font-bold">
             {message.sender === MessageSender.AVATAR ? "Avatar" : "You"}
           </p>
-          <p className="text-sm">{message.content}</p>
+          <p className="text-sm text-black">{message.content}</p>
         </div>
       ))}
     </div>

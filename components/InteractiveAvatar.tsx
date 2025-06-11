@@ -25,7 +25,7 @@ import { AVATARS } from "@/app/lib/constants";
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.Low,
   avatarName: AVATARS[0].avatar_id,
-  knowledgeId: undefined,
+  knowledgeId: process.env.NEXT_PUBLIC_KNOWLEDGE_ID,
   voice: {
     rate: 1.5,
     emotion: VoiceEmotion.EXCITED,
@@ -58,7 +58,7 @@ function InteractiveAvatar() {
 
       return token;
     } catch (error) {
-      console.error("Error fetching access token:", error);
+      console.log("Error fetching access token:", error);
       throw error;
     }
   }
@@ -105,13 +105,14 @@ function InteractiveAvatar() {
         await startVoiceChat();
       }
     } catch (error) {
-      console.error("Error starting avatar session:", error);
+      console.log("Error starting avatar session:", error);
     }
   });
 
   useUnmount(() => {
     stopAvatar();
   });
+
 
   useEffect(() => {
     if (stream && mediaStream.current) {
@@ -124,8 +125,8 @@ function InteractiveAvatar() {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="flex flex-col rounded-xl bg-zinc-900 overflow-hidden">
-        <div className="relative w-full aspect-video overflow-hidden flex flex-col items-center justify-center">
+      <div className="bg-white dark:bg-slate-800 shadow-xl border border-slate-200 dark:border-slate-700 px-8 py-6 flex flex-col items-center justify-center p-4 rounded-2xl">
+        <div className="relative w-full overflow-hidden flex flex-col items-center justify-center">
           {sessionState !== StreamingAvatarSessionState.INACTIVE ? (
             <AvatarVideo ref={mediaStream} />
           ) : (

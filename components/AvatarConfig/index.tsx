@@ -1,12 +1,5 @@
-import React, { useMemo, useState } from "react";
-import {
-  AvatarQuality,
-  ElevenLabsModel,
-  STTProvider,
-  VoiceEmotion,
-  StartAvatarRequest,
-  VoiceChatTransport,
-} from "@heygen/streaming-avatar";
+import React, { useMemo } from "react";
+import { AvatarQuality, StartAvatarRequest } from "@heygen/streaming-avatar";
 
 import { Input } from "../Input";
 import { Select } from "../Select";
@@ -28,9 +21,15 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
     key: T,
     value: StartAvatarRequest[T],
   ) => {
-    onConfigChange({ ...config, [key]: value });
+    onConfigChange({
+      ...config,
+      [key]:
+        key === "knowledgeId"
+          ? (process.env.NEXT_PUBLIC_KNOWLEDGE_ID as StartAvatarRequest[T])
+          : value,
+    });
   };
-  const [showMore, setShowMore] = useState<boolean>(false);
+  // const [showMore, setShowMore] = useState<boolean>(false);
 
   const selectedAvatar = useMemo(() => {
     const avatar = AVATARS.find(
@@ -52,42 +51,31 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
     }
   }, [config.avatarName]);
 
+
   return (
     <div className="relative flex flex-col gap-4 w-[550px] py-8 max-h-full overflow-y-auto px-4">
-      <Field label="Custom Knowledge Base ID">
+      {/* <Field label="Custom Knowledge Base ID">
         <Input
           placeholder="Enter custom knowledge base ID"
           value={config.knowledgeId}
           onChange={(value) => onChange("knowledgeId", value)}
         />
-      </Field>
-      <Field label="Avatar ID">
+      </Field> */}
+      <Field label="Choose Your Avatar">
         <Select
-          isSelected={(option) =>
-            typeof option === "string"
-              ? !!selectedAvatar?.isCustom
-              : option.avatar_id === selectedAvatar?.avatarId
-          }
-          options={[...AVATARS, "CUSTOM"]}
+          isSelected={(option) => option.avatar_id === selectedAvatar?.avatarId}
+          options={[...AVATARS]}
           placeholder="Select Avatar"
           renderOption={(option) => {
-            return typeof option === "string"
-              ? "Custom Avatar ID"
-              : option.name;
+            return option.name;
           }}
-          value={
-            selectedAvatar?.isCustom ? "Custom Avatar ID" : selectedAvatar?.name
-          }
+          value={selectedAvatar?.name}
           onSelect={(option) => {
-            if (typeof option === "string") {
-              onChange("avatarName", "");
-            } else {
-              onChange("avatarName", option.avatar_id);
-            }
+            onChange("avatarName", option.avatar_id);
           }}
         />
       </Field>
-      {selectedAvatar?.isCustom && (
+      {/* {selectedAvatar?.isCustom && (
         <Field label="Custom Avatar ID">
           <Input
             placeholder="Enter custom avatar ID"
@@ -95,7 +83,7 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
             onChange={(value) => onChange("avatarName", value)}
           />
         </Field>
-      )}
+      )} */}
       <Field label="Language">
         <Select
           isSelected={(option) => option.value === config.language}
@@ -117,7 +105,7 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
           onSelect={(option) => onChange("quality", option)}
         />
       </Field>
-      <Field label="Voice Chat Transport">
+      {/* <Field label="Voice Chat Transport">
         <Select
           isSelected={(option) => option === config.voiceChatTransport}
           options={Object.values(VoiceChatTransport)}
@@ -125,8 +113,8 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
           value={config.voiceChatTransport}
           onSelect={(option) => onChange("voiceChatTransport", option)}
         />
-      </Field>
-      {showMore && (
+      </Field> */}
+      {/* {showMore && (
         <>
           <h1 className="text-zinc-100 w-full text-center mt-5">
             Voice Settings
@@ -186,7 +174,7 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
         onClick={() => setShowMore(!showMore)}
       >
         {showMore ? "Show less" : "Show more..."}
-      </button>
+      </button> */}
     </div>
   );
 };

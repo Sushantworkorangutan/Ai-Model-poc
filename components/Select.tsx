@@ -1,7 +1,8 @@
+
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { useState } from "react";
 
-import { ChevronDownIcon } from "./Icons";
+import { ChevronDownIcon } from "lucide-react";
 
 interface SelectProps<T> {
   options: T[];
@@ -22,8 +23,8 @@ export function Select<T>(props: SelectProps<T>) {
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <SelectPrimitive.Trigger className="w-full text-white text-sm bg-zinc-700 py-2 px-6 rounded-lg cursor-pointer flex items-center justify-between h-fit disabled:opacity-50 min-h-[36px]">
-        <div className={`${props.value ? "text-white" : "text-zinc-400"}`}>
+      <SelectPrimitive.Trigger className="w-full text-black border border-slate-400 text-sm bg-transparent py-2 px-6 rounded-lg cursor-pointer flex items-center justify-between h-fit disabled:opacity-50 min-h-[36px]">
+        <div className={`${props.value ? "text-black" : "text-zinc-400"}`}>
           {props.value ? props.value : props.placeholder}
         </div>
         <ChevronDownIcon className="w-4 h-4" />
@@ -35,15 +36,15 @@ export function Select<T>(props: SelectProps<T>) {
           position="popper"
           sideOffset={5}
         >
-          <SelectPrimitive.Viewport className="rounded-lg border border-zinc-600 bg-zinc-700 shadow-lg py-1">
+          <SelectPrimitive.Viewport className="rounded-lg border border-zinc-600 bg-white backdrop-blur-3xl shadow-lg py-1">
             {props.options.map((option) => {
               const isSelected = props.isSelected(option);
 
               return (
                 <div
                   key={props.renderOption(option)?.toString()}
-                  className={`py-2 px-4 cursor-pointer hover:bg-zinc-600 outline-none text-sm ${
-                    isSelected ? "text-white bg-zinc-500" : "text-zinc-400"
+                  className={`py-2 px-4 cursor-pointer hover:bg-[#1e3c29] hover:opacity-45 hover:text-white  text-sm ${
+                    isSelected ? "text-white bg-[#1e3c29]" : "text-black"
                   }`}
                   onClick={() => {
                     props.onSelect(option);

@@ -22,7 +22,7 @@ export async function POST() {
       status: 200,
     });
   } catch (error) {
-    console.error("Error retrieving access token:", error);
+    console.log("Error retrieving access token:", error);
 
     return new Response("Failed to retrieve access token", {
       status: 500,
