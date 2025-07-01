@@ -16,8 +16,8 @@ const fontMono = FontMono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Faber Interactive Avatar",
-    template: `%s - Faber Interactive Avatar`,
+    default: "Franke AI Trainer Bot - Demo",
+    template: `%s - Franke AI Trainer Bot - Demo`,
   },
   icons: {
     icon: "/logo.svg",
