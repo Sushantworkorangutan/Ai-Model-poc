@@ -9,7 +9,7 @@ export default function NavBar() {
       <div className="flex flex-row justify-center items-center w-[1000px] m-auto p-6">
         <div className="flex flex-row items-center gap-4">
           <Link href="/">
-            <Image src="/logo.svg" alt="logo" width={300} height={300} />
+            <Image src="/Franke-Logo.jpg" alt="logo" width={300} height={300} />
           </Link>
           {/* <div className="bg-gradient-to-br from-sky-300 to-indigo-500 bg-clip-text">
             <p className="text-xl font-semibold text-transparent">
