@@ -6,6 +6,7 @@ import { useStreamingAvatarSession } from "../logic/useStreamingAvatarSession";
 import { StreamingAvatarSessionState } from "../logic";
 import { CloseIcon } from "../Icons";
 import { Button } from "../Button";
+import Image from "next/image";
 
 export const AvatarVideo = forwardRef<HTMLVideoElement>(({}, ref) => {
   const { sessionState, stopAvatar } = useStreamingAvatarSession();
@@ -35,31 +36,33 @@ export const AvatarVideo = forwardRef<HTMLVideoElement>(({}, ref) => {
 
   return (
     <>
-      {connectionQuality !== ConnectionQuality.UNKNOWN && (
-        <div className="absolute bg-green-950/40 top-3 left-3 bg-black text-white rounded-lg px-3 py-2">
-          Connection Quality: {connectionQuality}
-        </div>
-      )}
-      {isLoaded && (
-        <Button
-          className="absolute top-3 right-3 !p-2 bg-zinc-700 bg-opacity-50 z-10"
-          onClick={stopAvatar}
-        >
-          <CloseIcon />
-        </Button>
-      )}
-      <video
-        ref={ref}
-        autoPlay
-        playsInline
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-        }}
-      >
-        <track kind="captions" />
-      </video>
+     <div className="relative w-full h-full flex items-center justify-center bg-black">
+      <div className="flex xl:flex-row flex-col justify-center items-center ">
+
+  <div className="absolute top-2 left-2 sm:top-4 sm:left-4">
+
+  <Image src="/Franke-Logo.jpg" alt="logo" width={100} height={100} />
+  </div>
+  {/* {connectionQuality !== ConnectionQuality.UNKNOWN && (
+    <div className="absolute top-4 left-4 sm:top-10 sm:left-10 bg-green-950/60 text-white rounded-md px-2 py-1 text-[10px] sm:text-xs">
+      Connecion Quality : {connectionQuality}
+    </div>
+  )} */}
+      </div>
+  
+  {isLoaded && (
+    <Button
+      className="absolute top-2 right-2 sm:top-4 sm:right-4 p-1 sm:p-2 bg-zinc-700/50 text-white rounded-md"
+      onClick={stopAvatar}
+    >
+      <CloseIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+    </Button>
+  )}
+
+  <video ref={ref} autoPlay playsInline className="w-full h-full object-contain" />
+</div>
+
+
       {!isLoaded ? (
   <div className="w-full h-full flex items-center justify-center absolute top-0 left-0">
     {errorMessage ? (

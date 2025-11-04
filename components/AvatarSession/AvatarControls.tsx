@@ -1,12 +1,12 @@
+'use client'
 import { ToggleGroup, ToggleGroupItem } from "@radix-ui/react-toggle-group";
 import React from "react";
 
 import { useVoiceChat } from "../logic/useVoiceChat";
 import { Button } from "../Button";
 import { useInterrupt } from "../logic/useInterrupt";
+import { useStreamingAvatarContext } from "../logic/context";
 
-import { AudioInput } from "./AudioInput";
-import { TextInput } from "./TextInput";
 
 export const AvatarControls: React.FC = () => {
   const {
@@ -17,10 +17,19 @@ export const AvatarControls: React.FC = () => {
   } = useVoiceChat();
   const { interrupt } = useInterrupt();
 
+
+  const {setStartQuiz,startQuiz}=useStreamingAvatarContext()
+
   return (
-    <div className="flex flex-col gap-3 relative w-full items-center">
+    <div className="flex flex-col gap-2 relative w-full items-center">
+  {/* Top control bar */}
+  <div className="w-full flex flex-col xl:flex-row gap-2 justify-between items-center">
+    {/* Toggle group (Voice/Text) */}
+    <div className="w-full flex flex-wrap gap-2 justify-center xl:justify-start">
       <ToggleGroup
-        className={`bg-green-900/30 rounded-lg p-1 ${isVoiceChatLoading ? "opacity-50" : ""}`}
+        className={`flex gap-2 bg-green-900/30 rounded-lg p-1 ${
+          isVoiceChatLoading ? "opacity-50" : ""
+        }`}
         disabled={isVoiceChatLoading}
         type="single"
         value={isVoiceChatActive || isVoiceChatLoading ? "voice" : "text"}
@@ -37,24 +46,54 @@ export const AvatarControls: React.FC = () => {
         }}
       >
         <ToggleGroupItem
-          className="data-[state=on]:bg-green-950 text-white rounded-lg p-2 text-sm w-[90px] text-center"
+          className="data-[state=on]:bg-green-950 text-white rounded-lg
+                     w-full sm:w-[110px]
+                     text-xs sm:text-sm lg:text-base
+                     px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2"
           value="voice"
         >
           Voice Chat
         </ToggleGroupItem>
         <ToggleGroupItem
-          className="data-[state=on]:bg-green-950 text-white rounded-lg p-2 text-sm w-[90px] text-center"
+          className="data-[state=on]:bg-green-950 text-white rounded-lg
+                     w-full sm:w-[110px]
+                     text-xs sm:text-sm lg:text-base
+                     px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2"
           value="text"
         >
           Text Chat
         </ToggleGroupItem>
       </ToggleGroup>
-      {isVoiceChatActive || isVoiceChatLoading ? <AudioInput /> : <TextInput />}
-      <div className="absolute top-[-70px] right-3">
-        <Button className="!bg-green-950/70 !text-white" onClick={interrupt}>
-          Interrupt
-        </Button>
-      </div>
     </div>
+
+  
+
+  {/* Interrupt button - responsive */}
+  <div className="w-full flex justify-center xl:justify-end  mt-2 gap-2">
+    {/* Quiz button */}
+    <Button
+      className="bg-green-950 text-white rounded-lg
+                 w-full sm:w-auto
+                 text-xs sm:text-sm lg:text-base
+                 px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2"
+      onClick={() => setStartQuiz((prev) => (prev === null ? true : !prev))}
+    >
+      {startQuiz === null || !startQuiz ? "Start Quiz" : "End Quiz"}
+    </Button>
+    <Button
+      className="!bg-green-950/70 !text-white
+                 w-full sm:w-auto
+                 text-xs sm:text-sm lg:text-base
+                 px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2"
+      onClick={interrupt}
+    >
+      Interrupt
+    </Button>
+  </div>
+  </div>
+</div>
+
+  
+  
   );
 };

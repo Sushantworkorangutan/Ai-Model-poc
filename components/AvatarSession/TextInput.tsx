@@ -9,7 +9,7 @@ import { useTextChat } from "../logic/useTextChat";
 import { Input } from "../Input";
 import { useConversationState } from "../logic/useConversationState";
 
-export const TextInput: React.FC = () => {
+export const TextInput: React.FC<{startQuiz:boolean|null}> = ({startQuiz}) => {
   const { sendMessage, sendMessageSync, repeatMessage, repeatMessageSync } =
     useTextChat();
   const { startListening, stopListening } = useConversationState();
@@ -17,6 +17,8 @@ export const TextInput: React.FC = () => {
   const [taskMode, setTaskMode] = useState<TaskMode>(TaskMode.ASYNC);
   const [message, setMessage] = useState("");
 
+
+  
   const handleSend = useCallback(() => {
     if (message.trim() === "") {
       return;
@@ -63,7 +65,24 @@ export const TextInput: React.FC = () => {
     }
   }, [message, previousText, startListening, stopListening]);
 
+
+
+  useEffect(() => {
+    if (startQuiz) {
+      setTaskType(TaskType.TALK);
+      setTaskMode(TaskMode.SYNC);
+      // setMessage("Start Quiz");
+      sendMessageSync("Start Quiz");
+    }else if(startQuiz===false){
+      setTaskType(TaskType.TALK);
+      setTaskMode(TaskMode.SYNC);
+      // setMessage("End Quiz");
+      sendMessageSync("End Quiz");
+    }
+  }, [startQuiz]);
+
   return (
+    <div className="pt-4 flex flex-col md:flex-row items-center justify-center gap-4">
     <div className="flex flex-row gap-2 items-end w-full">
       <Select
         isSelected={(option) => option === taskType}
@@ -79,8 +98,10 @@ export const TextInput: React.FC = () => {
         value={taskMode.toUpperCase()}
         onSelect={setTaskMode}
       />
+    </div>
+    <div className="w-full flex gap-1 items-center">
       <Input
-        className="min-w-[500px] text-black"
+        className="w-full text-black"
         placeholder={`Type something for the avatar to ${taskType === TaskType.REPEAT ? "repeat" : "respond"}...`}
         value={message}
         onChange={setMessage}
@@ -88,6 +109,7 @@ export const TextInput: React.FC = () => {
       <Button className="!p-2" onClick={handleSend}>
         <SendIcon size={20} />
       </Button>
+    </div>
     </div>
   );
 };

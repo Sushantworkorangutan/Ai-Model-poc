@@ -56,6 +56,8 @@ type StreamingAvatarContextProps = {
   setIsListening: (isListening: boolean) => void;
   isUserTalking: boolean;
   setIsUserTalking: (isUserTalking: boolean) => void;
+  startQuiz: boolean | null;
+  setStartQuiz: React.Dispatch<React.SetStateAction<boolean | null>>
   isAvatarTalking: boolean;
   setIsAvatarTalking: (isAvatarTalking: boolean) => void;
 
@@ -85,6 +87,8 @@ const StreamingAvatarContext = React.createContext<StreamingAvatarContextProps>(
     setIsListening: () => {},
     isUserTalking: false,
     setIsUserTalking: () => {},
+    startQuiz: null,
+    setStartQuiz: () => {},
     isAvatarTalking: false,
     setIsAvatarTalking: () => {},
     connectionQuality: ConnectionQuality.UNKNOWN,
@@ -203,11 +207,14 @@ const useStreamingAvatarTalkingState = () => {
   const [isUserTalking, setIsUserTalking] = useState(false);
   const [isAvatarTalking, setIsAvatarTalking] = useState(false);
 
+  const [startQuiz,setStartQuiz]=useState<boolean|null>(null)
+
   return {
     isUserTalking,
     setIsUserTalking,
     isAvatarTalking,
     setIsAvatarTalking,
+    startQuiz,setStartQuiz
   };
 };
 

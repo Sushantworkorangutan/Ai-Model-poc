@@ -16,11 +16,11 @@ const fontMono = FontMono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Franke AI Trainer Bot - Demo",
-    template: `%s - Franke AI Trainer Bot - Demo`,
+    default: "Franke AI Trainer Bot -Demo",
+    template: `%s - Franke AI Trainer Bot -Demo`,
   },
   icons: {
-    icon: "/logo.svg",
+    icon: "/Franke-Logo.svg",
   },
 };
 
@@ -38,7 +38,7 @@ export default function RootLayout({
       <head />
       <body className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <main className="relative flex flex-col gap-6 h-screen w-screen">
-          <NavBar />
+          {/* <NavBar /> */}
           {children}
         </main>
       </body>

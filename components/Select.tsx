@@ -3,6 +3,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { useState } from "react";
 
 import { ChevronDownIcon } from "lucide-react";
+import { cn } from "@/app/lib/utils";
 
 interface SelectProps<T> {
   options: T[];
@@ -12,6 +13,7 @@ interface SelectProps<T> {
   value: string | null | undefined;
   placeholder?: string;
   disabled?: boolean;
+  className?:string
 }
 
 export function Select<T>(props: SelectProps<T>) {
@@ -23,7 +25,10 @@ export function Select<T>(props: SelectProps<T>) {
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <SelectPrimitive.Trigger className="w-full text-black border border-slate-400 text-sm bg-transparent py-2 px-6 rounded-lg cursor-pointer flex items-center justify-between h-fit disabled:opacity-50 min-h-[36px]">
+      <SelectPrimitive.Trigger className={cn(
+        "w-full text-black border border-slate-400 text-sm bg-transparent py-2 px-6 rounded-lg cursor-pointer flex items-center justify-between h-fit disabled:opacity-50 min-h-[36px]",
+        props.className
+      )}>
         <div className={`${props.value ? "text-black" : "text-zinc-400"}`}>
           {props.value ? props.value : props.placeholder}
         </div>

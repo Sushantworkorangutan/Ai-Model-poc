@@ -6,10 +6,10 @@ import Image from "next/image";
 export default function NavBar() {
   return (
     <>
-      <div className="flex flex-row justify-center items-center w-[1000px] m-auto p-6">
+      <div className="flex flex-row justify-center items-center w-full">
         <div className="flex flex-row items-center gap-4">
           <Link href="/">
-            <Image src="/Franke-Logo.jpg" alt="logo" width={300} height={300} />
+            <Image src="/Franke-Logo.jpg" alt="logo" width={200} height={200} />
           </Link>
           {/* <div className="bg-gradient-to-br from-sky-300 to-indigo-500 bg-clip-text">
             <p className="text-xl font-semibold text-transparent">

@@ -53,7 +53,7 @@ export const AvatarConfig: React.FC<AvatarConfigProps> = ({
 
 
   return (
-    <div className="relative flex flex-col gap-4 w-[550px] py-8 max-h-full overflow-y-auto px-4">
+    <div className="relative flex flex-col gap-4 w-full max-w-xs sm:max-w-md md:max-w-xl p-4 max-h-full overflow-y-auto">
       {/* <Field label="Custom Knowledge Base ID">
         <Input
           placeholder="Enter custom knowledge base ID"
