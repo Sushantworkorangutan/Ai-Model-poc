@@ -71,7 +71,7 @@ export const AvatarControls: React.FC = () => {
   {/* Interrupt button - responsive */}
   <div className="w-full flex justify-center xl:justify-end  mt-2 gap-2">
     {/* Quiz button */}
-    <Button
+    {/* <Button
       className="bg-[#ef3c52] text-white rounded-lg
                  w-full sm:w-auto
                  text-xs sm:text-sm lg:text-base
@@ -79,7 +79,7 @@ export const AvatarControls: React.FC = () => {
       onClick={() => setStartQuiz((prev) => (prev === null ? true : !prev))}
     >
       {startQuiz === null || !startQuiz ? "Start Quiz" : "End Quiz"}
-    </Button>
+    </Button> */}
     <Button
       className="!bg-[#ef3c52]/70 !text-white
                  w-full sm:w-auto
