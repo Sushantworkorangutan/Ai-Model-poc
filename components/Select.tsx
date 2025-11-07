@@ -48,8 +48,8 @@ export function Select<T>(props: SelectProps<T>) {
               return (
                 <div
                   key={props.renderOption(option)?.toString()}
-                  className={`py-2 px-4 cursor-pointer hover:bg-[#1e3c29] hover:opacity-45 hover:text-white  text-sm ${
-                    isSelected ? "text-white bg-[#1e3c29]" : "text-black"
+                  className={`py-2 px-4 cursor-pointer hover:bg-[#ef3c52] hover:opacity-45 hover:text-white  text-sm ${
+                    isSelected ? "text-white bg-[#ef3c52]" : "text-black"
                   }`}
                   onClick={() => {
                     props.onSelect(option);

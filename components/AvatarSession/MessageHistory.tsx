@@ -32,7 +32,7 @@ export const MessageHistory: React.FC = () => {
       className={`rounded-2xl px-3 py-2 shadow-md 
         ${
           m.sender === MessageSender.CLIENT
-            ? "bg-green-900/80 text-white" // client message (dark green with transparency)
+            ? "bg-[#ef3c52]/80 text-white" // client message (dark green with transparency)
             : "bg-white/80 text-black"    // avatar message (semi-transparent white)
         }`}
     >
