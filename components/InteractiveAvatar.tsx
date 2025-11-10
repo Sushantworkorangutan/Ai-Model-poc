@@ -23,6 +23,7 @@ import { MessageHistory } from "./AvatarSession/MessageHistory";
 import { AVATARS } from "@/app/lib/constants";
 import NavBar from "./NavBar";
 import { Nabla } from "next/font/google";
+import { getVoiceAccentSettings, getVoiceModel } from "./logic/voiceSettings";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.Low,
@@ -31,7 +32,7 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
   voice: {
     rate: 1.0,
     emotion: VoiceEmotion.FRIENDLY,
-    model: ElevenLabsModel.eleven_multilingual_v2 ?? ElevenLabsModel.eleven_flash_v2_5,
+    model: ElevenLabsModel.eleven_flash_v2_5,
     elevenlabsSettings:{
       stability: 0.6,
       similarity_boost: 0.9,
@@ -39,7 +40,7 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
       use_speaker_boost: true,
     }
   },
-  language: "en",
+  language:"en",
   voiceChatTransport: VoiceChatTransport.WEBSOCKET,
   sttSettings: {
     provider: STTProvider.DEEPGRAM,
@@ -108,8 +109,24 @@ function InteractiveAvatar() {
       avatar.on(StreamingEvents.AVATAR_END_MESSAGE, (event) => {
         console.log(">>>>> Avatar end message:", event);
       });
-
-      await startAvatar(config);
+      const { emotion, rate, style } = getVoiceAccentSettings(config.language || "en");
+      const dynamicConfig: StartAvatarRequest = {
+        ...config,
+        voice: {
+          ...config.voice,
+          emotion,
+          rate,
+          model: getVoiceModel(config.language||"en"),
+          elevenlabsSettings: {
+            ...config.voice?.elevenlabsSettings,
+            style,
+          },
+        },
+        sttSettings: {
+          ...config.sttSettings,
+        },
+      };
+      await startAvatar(dynamicConfig);
 
       if (isVoiceChat) {
         await startVoiceChat();
