@@ -29,15 +29,23 @@ const DEFAULT_CONFIG: StartAvatarRequest = {
   avatarName: AVATARS[0].avatar_id,
   knowledgeId: process.env.NEXT_PUBLIC_KNOWLEDGE_ID,
   voice: {
-    rate: 1.5,
-    emotion: VoiceEmotion.EXCITED,
-    model: ElevenLabsModel.eleven_flash_v2_5,
+    rate: 1.0,
+    emotion: VoiceEmotion.FRIENDLY,
+    model: ElevenLabsModel.eleven_multilingual_v2 ?? ElevenLabsModel.eleven_flash_v2_5,
+    elevenlabsSettings:{
+      stability: 0.6,
+      similarity_boost: 0.9,
+      style: 0.6,
+      use_speaker_boost: true,
+    }
   },
   language: "en",
   voiceChatTransport: VoiceChatTransport.WEBSOCKET,
   sttSettings: {
     provider: STTProvider.DEEPGRAM,
+    confidence:0.8
   },
+  useSilencePrompt:true
 };
 
 function InteractiveAvatar() {
